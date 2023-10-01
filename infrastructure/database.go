@@ -1,7 +1,8 @@
-package bootstrap
+package infrastructure
 
 import (
 	"fmt"
+	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
 	"log"

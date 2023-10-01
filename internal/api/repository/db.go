@@ -1,14 +1,14 @@
 package repository
 
 import (
-	"github.com/abishz17/go-backend-template/bootstrap"
+	"github.com/abishz17/go-backend-template/infrastructure"
 )
 
 type DataBase struct {
-	conn bootstrap.DBConn
+	conn infrastructure.DBConn
 }
 
-func NewDataBase(conn bootstrap.DBConn) *DataBase {
+func NewDataBase(conn infrastructure.DBConn) *DataBase {
 	return &DataBase{
 		conn: conn,
 	}
