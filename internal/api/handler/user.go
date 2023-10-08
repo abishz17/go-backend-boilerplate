@@ -2,6 +2,7 @@ package handler
 
 import (
 	"github.com/abishz17/go-backend-template/internal/api/service"
+	"github.com/abishz17/go-backend-template/internal/response"
 	"github.com/abishz17/go-backend-template/internal/view"
 	"github.com/labstack/echo/v4"
 	"net/http"
@@ -46,10 +47,9 @@ func (u UserHandler) Login(ctx echo.Context) error {
 	}
 	tokens, err := u.userService.UserLogin(ctx, userView)
 	if err != nil {
-		//return echo.NewHTTPError(500, "Something unusual occured.")
-		return ctx.JSON(http.StatusInternalServerError, "Something unusual happened")
+		return response.ErrorResponse(ctx, err)
 	}
-	return ctx.JSON(http.StatusCreated, map[string]interface{}{
+	return response.SuccessResponse(ctx, map[string]interface{}{
 		"access_token":  tokens.AccessToken,
 		"refresh_token": tokens.RefreshToken,
 	})

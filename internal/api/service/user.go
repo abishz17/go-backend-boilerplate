@@ -1,11 +1,11 @@
 package service
 
 import (
-	"fmt"
 	"github.com/abishz17/go-backend-template/external/auth"
 	"github.com/abishz17/go-backend-template/external/password"
 	"github.com/abishz17/go-backend-template/infrastructure"
 	"github.com/abishz17/go-backend-template/internal/domain"
+	"github.com/abishz17/go-backend-template/internal/response"
 	"github.com/abishz17/go-backend-template/internal/view"
 	"github.com/labstack/echo/v4"
 )
@@ -44,7 +44,8 @@ func (u *UserService) UserLogin(ctx echo.Context, view view.UserLoginView) (*vie
 
 	user, err := u.service.GetUserByEmail(view.Email)
 	if err != nil {
-		return nil, fmt.Errorf("invalid username or password")
+		err := response.NewAppError("invalid username or password")
+		return nil, err
 	}
 	if err := CheckPassword(view, *user); err != nil {
 		return nil, err
@@ -59,7 +60,8 @@ func (u *UserService) UserLogin(ctx echo.Context, view view.UserLoginView) (*vie
 func CheckPassword(view view.UserLoginView, user domain.User) error {
 	hashedPw := user.Password
 	if !password.MatchPassword(hashedPw, view.Password) {
-		return fmt.Errorf("invalid username or password")
+		err := response.NewAppError("invalid username or password")
+		return err
 	}
 	return nil
 }
