@@ -9,7 +9,7 @@ import (
 )
 
 type DBConn struct {
-	db *gorm.DB
+	Db *gorm.DB
 }
 
 func NewDBConn(env Env) DBConn {
@@ -24,6 +24,6 @@ func NewDBConn(env Env) DBConn {
 		log.Fatal("Cannot connect to the database", err)
 	}
 	return DBConn{
-		db: db,
+		Db: db,
 	}
 }
