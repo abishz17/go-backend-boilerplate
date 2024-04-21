@@ -20,11 +20,11 @@ fresh:
 	$(MAKE) start
 
 force-build:
-	docker compose -f docker.compose.yml build --no-cache
+	docker compose -f docker-compose.yml build --no-cache
 
 start:
-	docker compose -f docker-compose.yml up -d
+	docker compose -f docker-compose.yml up
 
 
 init-network:
-		docker network inspect docker-network > /dev/null 2>&1 || docker network create docker-network --subnet=172.20.0.0/16 --gateway=172.200.0.1
+		docker network inspect docker-network > /dev/null 2>&1 || docker network create docker-network --subnet=172.20.0.0/16 --gateway=172.20.0.1
