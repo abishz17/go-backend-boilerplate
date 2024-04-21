@@ -59,3 +59,5 @@ func GenerateJWTTokens(user domain.User, customClaims map[string]interface{}, en
 	}, nil
 
 }
+
+//func VerifyToken(token string)

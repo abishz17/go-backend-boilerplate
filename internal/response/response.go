@@ -47,8 +47,14 @@ func ErrorResponse(ctx echo.Context, err error) error {
 	} else if errors.Is(err, gorm.ErrDuplicatedKey) {
 		return BadRequestResponse(ctx, "duplicate data")
 	}
-	if errors.As(err, &AppError{}) {
+	switch {
+	case errors.As(err, &AppError{}):
 		return BadRequestResponse(ctx, err.Error())
+	case errors.As(err, &NotFoundError{}):
+		return NotFoundResponse(ctx, err.Error())
+	default:
+		return ServerErrorResponse(ctx, err)
+
 	}
-	return ServerErrorResponse(ctx, err)
+
 }
